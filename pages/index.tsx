@@ -1,5 +1,6 @@
 import BookCard from "@/components/BookCard";
 import { useState } from "react";
+import bookStackSVG from "../public/bookStack.svg";
 
 const BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
 
@@ -66,7 +67,9 @@ export default function Home() {
             return (
               <BookCard
                 key={book.id}
-                thumbnail={book.volumeInfo.imageLinks?.thumbnail}
+                thumbnail={
+                  book.volumeInfo.imageLinks?.thumbnail || bookStackSVG
+                }
                 title={book.volumeInfo.title}
                 authors={book.volumeInfo.authors}
               />
