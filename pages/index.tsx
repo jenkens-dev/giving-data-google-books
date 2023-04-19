@@ -55,11 +55,16 @@ export default function Home() {
             value={searchValue || ""}
             required
             placeholder="Search books..."
-            className="block w-full p-4 text-sm text-gray-900 border border-stone-600 rounded-sm"
             onChange={handleInputChange}
             autoComplete="off"
+            className="block w-full p-4 text-md text-gray-900 placeholder-gray-600 border border-stone-600 rounded-sm"
           />
-          <button type="submit">Search</button>
+          <button
+            type="submit"
+            className="text-white absolute right-2.5 bottom-2.5 bg-orange-900 hover:bg-orange-950 font-medium rounded-sm text-md px-4 py-2"
+          >
+            Search
+          </button>
         </div>
       </form>
       <div className="flex flex-wrap">
