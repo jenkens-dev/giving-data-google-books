@@ -44,17 +44,18 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center py-24 px-8">
-      <form onSubmit={handleSearchSubmit}>
-        <div>
-          <label className="sr-only" htmlFor="bookSearch">
-            Search books:
-          </label>
+      <form onSubmit={handleSearchSubmit} className="w-9/12">
+        <label className="sr-only" htmlFor="bookSearch">
+          Search books
+        </label>
+        <div className="relative">
           <input
             type="search"
             id="bookSearch"
             value={searchValue || ""}
             required
             placeholder="Search books..."
+            className="block w-full p-4 text-sm text-gray-900 border border-stone-600 rounded-sm"
             onChange={handleInputChange}
             autoComplete="off"
           />
