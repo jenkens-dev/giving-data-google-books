@@ -2,15 +2,32 @@ import { useState } from "react"
 
 const BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
 
+interface BookData {
+  id: string;
+  volumeInfo: {
+    title: string;
+    categories?: string[];
+    publisher?: string;
+    authors: string[];
+    description: string;
+    infoLink: string;
+    imageLinks?: {
+      thumbnail: string;
+    }
+    publishedDate: string;
+  }
+}
+
 export default function Home() {
   const [searchValue, setSearchValue] = useState("");
+  const [bookData, setBookData] = useState<BookData[]>([])
 
   const handleSearchSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const results = await fetch(`${BOOKS_API_URL}${searchValue}&key=${process.env.NEXT_PUBLIC_API_KEY}`)
+    await fetch(`${BOOKS_API_URL}${searchValue}&key=${process.env.NEXT_PUBLIC_API_KEY}`)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data)
+      setBookData(data.items)
     })
   }
 
@@ -26,6 +43,14 @@ export default function Home() {
         </label>
         <button type="submit">Search</button>
       </form>
+      <div>
+        {bookData.map((book) => {
+          return (
+              <div key={book.id}>{book.volumeInfo.title}</div>
+            );
+          })
+        }
+      </div>
     </main>
   )
 }
