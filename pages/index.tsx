@@ -67,7 +67,7 @@ export default function Home() {
           </button>
         </div>
       </form>
-      <div className="flex flex-wrap">
+      <div className="grid grid-cols-2 justify-items-center gap-y-1.5 w-full mt-6">
         {bookData.length > 0 ? (
           bookData.map((book) => {
             return (
@@ -82,7 +82,7 @@ export default function Home() {
             );
           })
         ) : (
-          <div>Search to find books</div>
+          <div>No books found yet!</div>
         )}
       </div>
     </main>
