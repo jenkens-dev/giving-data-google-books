@@ -68,6 +68,7 @@ export default function Home() {
                 key={book.id}
                 thumbnail={book.volumeInfo.imageLinks?.thumbnail}
                 title={book.volumeInfo.title}
+                authors={book.volumeInfo.authors}
               />
             );
           })

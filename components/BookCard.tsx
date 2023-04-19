@@ -3,9 +3,10 @@ import Image from "next/image";
 interface BookCardProps {
   thumbnail: string | undefined;
   title: string;
+  authors: string[];
 }
 
-export default function BookCard({ thumbnail, title }: BookCardProps) {
+export default function BookCard({ thumbnail, title, authors }: BookCardProps) {
   return (
     <div className="rounded-sm border border-gray-100">
       {thumbnail && (
@@ -18,6 +19,9 @@ export default function BookCard({ thumbnail, title }: BookCardProps) {
         />
       )}
       <p>{title}</p>
+      {authors.map((author) => {
+        return <p key={author}>{author}</p>;
+      })}
     </div>
   );
 }
