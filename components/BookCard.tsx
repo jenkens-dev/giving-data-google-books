@@ -8,17 +8,20 @@ interface BookCardProps {
 
 export default function BookCard({ thumbnail, title, authors }: BookCardProps) {
   return (
-    <div className="rounded-sm border border-gray-100">
+    <div className="rounded-sm border border-stone-600 bg-white p-4 relative">
       <Image
         src={thumbnail}
         alt={`Thumbnail picture of ${title}`}
         width="200"
         height="300"
-        className="object-fill"
       />
       <p>{title}</p>
       {authors.map((author) => {
-        return <p key={author}>{author}</p>;
+        return (
+          <p key={author} className="absolute bottom-0">
+            {author}
+          </p>
+        );
       })}
     </div>
   );
