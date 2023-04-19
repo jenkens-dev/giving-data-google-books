@@ -12,8 +12,8 @@ export default function BookCard({ thumbnail, title }: BookCardProps) {
         <Image
           src={thumbnail}
           alt={`Thumbnail picture of ${title}`}
-          width="100"
-          height="200"
+          width="200"
+          height="300"
           className="object-fill"
         />
       )}

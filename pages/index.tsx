@@ -42,7 +42,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center py-24 px-8">
       <form onSubmit={handleSearchSubmit}>
         <div>
           <label className="sr-only" htmlFor="bookSearch">
@@ -60,7 +60,7 @@ export default function Home() {
           <button type="submit">Search</button>
         </div>
       </form>
-      <div>
+      <div className="flex flex-wrap">
         {bookData.length > 0 ? (
           bookData.map((book) => {
             return (
