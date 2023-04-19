@@ -1,3 +1,4 @@
+import BookCard from "@/components/BookCard";
 import { useState } from "react";
 
 const BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
@@ -31,6 +32,7 @@ export default function Home() {
     )
       .then((res) => res.json())
       .then((data) => {
+        console.log(data.items);
         setBookData(data.items);
       });
   };
@@ -53,6 +55,7 @@ export default function Home() {
             required
             placeholder="Search books..."
             onChange={handleInputChange}
+            autoComplete="off"
           />
           <button type="submit">Search</button>
         </div>
@@ -60,7 +63,13 @@ export default function Home() {
       <div>
         {bookData.length > 0 ? (
           bookData.map((book) => {
-            return <div key={book.id}>{book.volumeInfo.title}</div>;
+            return (
+              <BookCard
+                key={book.id}
+                thumbnail={book.volumeInfo.imageLinks?.thumbnail}
+                title={book.volumeInfo.title}
+              />
+            );
           })
         ) : (
           <div>Search to find books</div>
