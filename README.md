@@ -5,7 +5,6 @@
 
 ## Getting Started
 - Clone this repo to your local machine and navigate into the associated folder
-
 - Run the development server:
 
 ```bash
