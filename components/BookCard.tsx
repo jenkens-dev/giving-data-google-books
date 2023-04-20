@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 interface BookCardProps {
@@ -20,11 +21,13 @@ export default function BookCard({
 }: BookCardProps) {
   const router = useRouter();
 
+  const bookDetailsURLObject = {
+    pathname: `/book/${id}`,
+    query: { id, title, thumbnail, authors, description, publishedDate },
+  };
+
   const handleClick = () => {
-    router.push({
-      pathname: `/book/${id}`,
-      query: { id, title, thumbnail, authors, description, publishedDate },
-    });
+    router.push(bookDetailsURLObject);
   };
 
   return (
@@ -44,6 +47,9 @@ export default function BookCard({
         {authors.map((author) => {
           return <p key={author}>{author}</p>;
         })}
+        <Link href={bookDetailsURLObject} className="underline">
+          Book Details
+        </Link>
       </div>
     </div>
   );
