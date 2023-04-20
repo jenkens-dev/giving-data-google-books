@@ -30,6 +30,7 @@ export default function Home() {
   const handleSearchSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ) => {
+    setFoundBookData([]);
     event.preventDefault();
     setIsSubmitting(true);
     await fetch(
@@ -39,6 +40,7 @@ export default function Home() {
       .then((data) => {
         setFoundBookData(data.items);
         setIsSubmitting(false);
+        setSearchValue("");
       })
       .catch((err) => {
         setError(err);
@@ -86,7 +88,10 @@ export default function Home() {
           </div>
         </form>
         <div className="grid grid-cols-2 gap-y-1.5 w-full mt-6">
-          {foundBookData?.length > 0 ? (
+          {error && <div>An error occurred please try again.</div>}
+          {!error && foundBookData?.length <= 0 ? (
+            <div>Use the search to find books!</div>
+          ) : (
             foundBookData.map((book) => {
               return (
                 <BookCard
@@ -100,8 +105,6 @@ export default function Home() {
                 />
               );
             })
-          ) : (
-            <div>No books found</div>
           )}
         </div>
       </main>
