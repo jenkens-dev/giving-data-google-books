@@ -87,10 +87,10 @@ export default function Home() {
             </button>
           </div>
         </form>
-        <div className="grid grid-cols-2 gap-y-1.5 w-full mt-6">
+        <div className="grid grid-cols-2 gap-y-1.5 w-full mt-6 justify-items-center">
           {error && <div>An error occurred please try again.</div>}
           {!error && foundBookData?.length <= 0 ? (
-            <div>Use the search to find books!</div>
+            <div className="col-span-2">Use the search to find books!</div>
           ) : (
             foundBookData.map((book) => {
               return (
