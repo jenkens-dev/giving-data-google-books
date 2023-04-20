@@ -55,7 +55,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Create Next App</title>
+        <title>GivingData Book App</title>
         <meta
           name="description"
           content="Book app that let's you search for books and leave reviews"
