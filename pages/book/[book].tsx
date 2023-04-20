@@ -35,8 +35,8 @@ export default function BookDetails() {
       <Image
         src={thumbnail as string}
         alt={`Thumbnail picture of ${title}`}
-        width="200"
-        height="300"
+        width="300"
+        height="400"
       />
       <p>Published {publishedDate}</p>
       <p>Author(s) {authors}</p>
