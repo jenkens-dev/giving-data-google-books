@@ -23,7 +23,7 @@ export default function BookCard({
   const handleClick = () => {
     router.push({
       pathname: `/book/${id}`,
-      query: { title, thumbnail, authors, description, publishedDate },
+      query: { id, title, thumbnail, authors, description, publishedDate },
     });
   };
 
