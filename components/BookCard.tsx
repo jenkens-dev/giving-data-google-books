@@ -7,8 +7,9 @@ interface BookCardProps {
 }
 
 export default function BookCard({ thumbnail, title, authors }: BookCardProps) {
+  console.log(title, authors);
   return (
-    <div className="rounded-sm border border-stone-600 bg-white p-4 relative">
+    <div className="w-1/2 rounded-sm border border-stone-600 bg-white p-4 relative">
       <Image
         src={thumbnail}
         alt={`Thumbnail picture of ${title}`}
