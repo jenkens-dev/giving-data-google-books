@@ -6,6 +6,8 @@ interface BookCardProps {
   title: string;
   authors: string[];
   id: string;
+  description: string;
+  publishedDate: string;
 }
 
 export default function BookCard({
