@@ -29,7 +29,7 @@ export default function BookCard({
 
   return (
     <div
-      className="w-1/2 rounded-sm border border-stone-500 hover:border-stone-900 bg-white p-4 cursor-pointer"
+      className="flex flex-col justify-center items-center w-1/2 rounded-sm border border-stone-500 hover:border-stone-900 bg-white p-4 cursor-pointer"
       onClick={handleClick}
     >
       <Image
