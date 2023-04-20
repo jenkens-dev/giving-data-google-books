@@ -31,15 +31,18 @@ export default function Home() {
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
+    setIsSubmitting(true);
     await fetch(
       `${BOOKS_API_URL}${searchValue}&key=${process.env.NEXT_PUBLIC_API_KEY}`
     )
       .then((res) => res.json())
       .then((data) => {
         setFoundBookData(data.items);
+        setIsSubmitting(false);
       })
       .catch((err) => {
         setError(err);
+        setIsSubmitting(false);
       });
   };
 
@@ -78,7 +81,7 @@ export default function Home() {
               type="submit"
               className="text-white absolute right-2.5 bottom-2.5 bg-orange-900 hover:bg-orange-950 font-medium rounded-sm text-md px-4 py-2"
             >
-              Search
+              {isSubmitting ? "Loading" : "Search"}
             </button>
           </div>
         </form>
