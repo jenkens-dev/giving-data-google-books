@@ -3,12 +3,12 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function BookDetails() {
+  const [review, setReview] = useState("");
+  const [savedReview, setSavedReview] = useState("");
   const router = useRouter();
   const bookData = router.query;
   const { id, thumbnail, title, authors, description, publishedDate } =
     bookData;
-
-  const [review, setReview] = useState("");
 
   const handleReviewSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -25,7 +25,7 @@ export default function BookDetails() {
   useEffect(() => {
     const previousReview = localStorage.getItem(id as string);
     if (previousReview) {
-      setReview(previousReview);
+      setSavedReview(previousReview);
     }
   }, [id]);
 
@@ -43,7 +43,7 @@ export default function BookDetails() {
       <p>{description}</p>
       <div>
         <h2>Reviews</h2>
-        {review}
+        {savedReview}
         <form onSubmit={handleReviewSubmit}>
           <textarea
             required
