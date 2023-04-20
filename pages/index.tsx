@@ -39,7 +39,6 @@ export default function Home() {
         setFoundBookData(data.items);
       })
       .catch((err) => {
-        console.log("error!!", { err });
         setError(err);
       });
   };
