@@ -22,7 +22,7 @@ interface BookData {
 
 export default function Home() {
   const [searchValue, setSearchValue] = useState("");
-  const [bookData, setBookData] = useState<BookData[]>([]);
+  const [foundBookData, setFoundBookData] = useState<BookData[]>([]);
 
   const handleSearchSubmit = async (
     event: React.FormEvent<HTMLFormElement>
@@ -34,7 +34,7 @@ export default function Home() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data.items);
-        setBookData(data.items);
+        setFoundBookData(data.items);
       });
   };
 
@@ -68,8 +68,8 @@ export default function Home() {
         </div>
       </form>
       <div className="grid grid-cols-2 gap-y-1.5 w-full mt-6">
-        {bookData.length > 0 ? (
-          bookData.map((book) => {
+        {foundBookData.length > 0 ? (
+          foundBookData.map((book) => {
             return (
               <BookCard
                 key={book.id}
