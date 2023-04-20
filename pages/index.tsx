@@ -10,7 +10,7 @@ interface BookData {
     title: string;
     categories?: string[];
     publisher?: string;
-    authors: string[];
+    authors?: string[];
     description: string;
     infoLink: string;
     imageLinks?: {
@@ -67,17 +67,17 @@ export default function Home() {
           </button>
         </div>
       </form>
-      <div className="grid grid-cols-2 justify-items-center gap-y-1.5 w-full mt-6">
+      <div className="grid grid-cols-2 gap-y-1.5 w-full mt-6">
         {bookData.length > 0 ? (
           bookData.map((book) => {
             return (
               <BookCard
                 key={book.id}
                 thumbnail={
-                  book.volumeInfo.imageLinks?.thumbnail || bookStackSVG
+                  book.volumeInfo.imageLinks?.thumbnail ?? bookStackSVG
                 }
                 title={book.volumeInfo.title}
-                authors={book.volumeInfo.authors}
+                authors={book.volumeInfo.authors ?? []}
               />
             );
           })
