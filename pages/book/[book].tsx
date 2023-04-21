@@ -31,7 +31,7 @@ export default function BookDetails() {
   }, [id]);
 
   return (
-    <div className="w-2/3 my-12 mx-24 flex gap-x-6">
+    <div className="w-2/3 my-12 mx-24 flex gap-x-8">
       <Image
         src={thumbnail as string}
         alt={`Thumbnail picture of ${title}`}
@@ -39,12 +39,14 @@ export default function BookDetails() {
         height="350"
         style={{ minWidth: 250, minHeight: 350, maxWidth: 250, maxHeight: 350 }}
       />
-      <div className="flex flex-col gap-y-4">
-        <h1 className="font-bold text-2xl">{title}</h1>
-        <p>Published: {publishedDate}</p>
-        <p>{authors}</p>
-        <p>{description}</p>
-        <h2 className="font-bold text-xl">Saved Reviews</h2>
+      <div className="flex flex-col gap-y-3.5">
+        <h1 className="font-bold text-5xl">{title}</h1>
+        <div>
+          <p className="italic text-slate-600 text-2xl">{authors}</p>
+          <p className="text-slate-500">Published: {publishedDate}</p>
+        </div>
+        <p className="text-lg">{description}</p>
+        <h2 className="font-semibold text-3xl">Saved Reviews</h2>
         {savedReview || "There are no reviews for this book."}
         <form onSubmit={handleReviewSubmit}>
           <label htmlFor="bookReview" className="sr-only">
@@ -61,7 +63,7 @@ export default function BookDetails() {
           />
           <button
             type="submit"
-            className="text-white bg-orange-900 hover:bg-orange-950 font-medium rounded-sm text-md px-4 py-2"
+            className="text-white bg-orange-900 hover:bg-orange-950 font-medium rounded-sm text-md px-4 py-2 mt-4"
           >
             Submit
           </button>
