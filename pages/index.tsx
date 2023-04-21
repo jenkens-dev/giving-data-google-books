@@ -3,13 +3,11 @@ import { useState } from "react";
 import BookCard from "@/components/BookCard";
 import bookStackSVG from "../public/bookStack.svg";
 import SearchBar from "@/components/SearchBar";
-import { BookData } from "@/models/BookModel";
 import { useBookContext } from "@/context/bookContext";
 
 const BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
 
 export default function Home() {
-  const [foundBookData, setFoundBookData] = useState<BookData[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const {
@@ -21,7 +19,6 @@ export default function Home() {
     searchValue: string,
     event: React.FormEvent<HTMLFormElement>
   ) => {
-    setFoundBookData([]);
     event.preventDefault();
     setIsSubmitting(true);
     await fetch(
@@ -31,11 +28,10 @@ export default function Home() {
       .then((data) => {
         if (!data.items) {
           // handle search not finding any results
-          setFoundBookData([]);
+          dispatch({ type: "SAVE_FOUND_BOOKS", payload: [] });
           setIsSubmitting(false);
         } else {
           dispatch({ type: "SAVE_FOUND_BOOKS", payload: data.items });
-          setFoundBookData(data.items);
           setIsSubmitting(false);
         }
       })
