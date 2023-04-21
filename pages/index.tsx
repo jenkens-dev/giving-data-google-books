@@ -35,7 +35,7 @@ export default function Home() {
     event.preventDefault();
     setIsSubmitting(true);
     await fetch(
-      `${BOOKS_API_URL}${searchValue}&key=${process.env.NEXT_PUBLIC_API_KEY}`
+      `${BOOKS_API_URL}${searchValue}&key=${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY}`
     )
       .then((res) => res.json())
       .then((data) => {
