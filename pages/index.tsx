@@ -39,8 +39,14 @@ export default function Home() {
     )
       .then((res) => res.json())
       .then((data) => {
-        setFoundBookData(data.items);
-        setIsSubmitting(false);
+        if (!data.items) {
+          // handle search not finding any results
+          setFoundBookData([]);
+          setIsSubmitting(false);
+        } else {
+          setFoundBookData(data.items);
+          setIsSubmitting(false);
+        }
       })
       .catch((err) => {
         setError(err);
