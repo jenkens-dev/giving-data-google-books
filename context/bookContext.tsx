@@ -1,6 +1,9 @@
+import { BookData } from "@/models/BookModel";
 import { createContext, useReducer, useContext } from "react";
 
-type Action = { type: "SAVE_FOUND_BOOKS" } | { type: "SAVE_SELECTED_BOOK" };
+type Action =
+  | { type: "SAVE_FOUND_BOOKS"; payload: BookData[] }
+  | { type: "SAVE_SELECTED_BOOK"; payload: BookData };
 type Dispatch = (action: Action) => void;
 type State = { foundBooks: []; selectedBook: {} };
 type BookProviderProps = { children: React.ReactNode };
