@@ -30,30 +30,37 @@ export default function BookDetails() {
   }, [id]);
 
   return (
-    <div>
-      <h1>{title}</h1>
+    <div className="w-2/3 my-12 mx-24 flex gap-x-6">
       <Image
         src={thumbnail as string}
         alt={`Thumbnail picture of ${title}`}
-        width="300"
-        height="400"
+        width="250"
+        height="350"
+        style={{ minWidth: 250, minHeight: 350, maxWidth: 250, maxHeight: 350 }}
       />
-      <p>Published {publishedDate}</p>
-      <p>Author(s) {authors}</p>
-      <p>{description}</p>
-      <div>
-        <h2>Reviews</h2>
-        {savedReview}
+      <div className="flex flex-col gap-y-4">
+        <h1 className="font-bold text-2xl">{title}</h1>
+        <p>Published {publishedDate}</p>
+        <p>{authors}</p>
+        <p>{description}</p>
+        <h2 className="font-bold text-xl">Saved Reviews</h2>
+        {savedReview || "There are no reviews for this book."}
         <form onSubmit={handleReviewSubmit}>
+          <label htmlFor="bookReview" className="sr-only">
+            Enter your review
+          </label>
           <textarea
+            id="bookReview"
             required
             value={review}
             onChange={handleReviewTextAreaChange}
-            placeholder="Review"
+            placeholder="Enter your review"
+            rows={8}
+            className="block w-full rounded-sm"
           />
           <button
             type="submit"
-            className="text-white absolute right-2.5 bottom-2.5 bg-orange-900 hover:bg-orange-950 font-medium rounded-sm text-md px-4 py-2"
+            className="text-white bg-orange-900 hover:bg-orange-950 font-medium rounded-sm text-md px-4 py-2"
           >
             Submit
           </button>
