@@ -14,6 +14,7 @@ export default function BookDetails() {
     event.preventDefault();
     localStorage.setItem(id as string, review);
     setReview("");
+    setSavedReview(review);
   };
 
   const handleReviewTextAreaChange = (
