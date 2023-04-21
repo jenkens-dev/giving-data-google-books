@@ -1,4 +1,4 @@
-export interface BookData {
+export type BookData = {
   id: string;
   volumeInfo: {
     title: string;
@@ -12,4 +12,4 @@ export interface BookData {
     };
     publishedDate: string;
   };
-}
+};
