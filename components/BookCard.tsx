@@ -42,12 +42,16 @@ export default function BookCard({
         height="300"
         className=""
       />
-      <div className="w-full bg-gray-50 absolute bottom-0 border-t border-stone-500 pl-4 py-2">
-        <p>{title}</p>
+      <div className="w-full bg-gray-50 absolute bottom-0 border-t border-stone-500 px-4 py-2">
+        <p className="font-semibold text-lg">{title}</p>
         {authors.map((author) => {
-          return <p key={author}>{author}</p>;
+          return (
+            <p className="text-sm text-slate-500" key={author}>
+              {author}
+            </p>
+          );
         })}
-        <Link href={bookDetailsURLObject} className="underline">
+        <Link href={bookDetailsURLObject} className="text-orange-900 underline">
           Book Details
         </Link>
       </div>
