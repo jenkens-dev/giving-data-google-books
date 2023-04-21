@@ -4,6 +4,7 @@ import BookCard from "@/components/BookCard";
 import bookStackSVG from "../public/bookStack.svg";
 import SearchBar from "@/components/SearchBar";
 import { BookData } from "@/models/BookModel";
+import { useBookContext } from "@/context/bookContext";
 
 const BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
 
@@ -11,6 +12,10 @@ export default function Home() {
   const [foundBookData, setFoundBookData] = useState<BookData[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
+  const {
+    state: { foundBooks, selectedBook },
+    dispatch,
+  } = useBookContext();
 
   const handleSearchSubmit = async (
     searchValue: string,
@@ -29,6 +34,7 @@ export default function Home() {
           setFoundBookData([]);
           setIsSubmitting(false);
         } else {
+          dispatch({ type: "SAVE_FOUND_BOOKS", payload: data.items });
           setFoundBookData(data.items);
           setIsSubmitting(false);
         }
@@ -57,10 +63,10 @@ export default function Home() {
         />
         <div className="grid grid-cols-2 gap-y-1.5 w-full mt-6 justify-items-center">
           {error && <div>An error occurred please try again.</div>}
-          {!error && !isSubmitting && foundBookData?.length <= 0 ? (
+          {!error && !isSubmitting && foundBooks?.length <= 0 ? (
             <div className="col-span-2">Use the search to find books!</div>
           ) : (
-            foundBookData.map((book) => {
+            foundBooks.map((book) => {
               return (
                 <BookCard
                   key={book.id}
