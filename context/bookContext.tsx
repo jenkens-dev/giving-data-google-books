@@ -5,8 +5,10 @@ type Action =
   | { type: "SAVE_FOUND_BOOKS"; payload: BookData[] }
   | { type: "SAVE_SELECTED_BOOK"; payload: BookData };
 type Dispatch = (action: Action) => void;
-type State = { foundBooks: []; selectedBook: {} };
+type State = { foundBooks: BookData[] | []; selectedBook: BookData | {} };
 type BookProviderProps = { children: React.ReactNode };
+
+const initialState = { foundBooks: [], selectedBook: {} };
 
 const BookStateContext = createContext<
   { state: State; dispatch: Dispatch } | undefined
@@ -15,7 +17,10 @@ const BookStateContext = createContext<
 function bookReducer(state: State, action: Action) {
   switch (action.type) {
     case "SAVE_FOUND_BOOKS": {
-      return state;
+      return {
+        ...state,
+        foundBooks: action.payload,
+      };
     }
     case "SAVE_SELECTED_BOOK": {
       return state;
@@ -27,10 +32,7 @@ function bookReducer(state: State, action: Action) {
 }
 
 function BookProvider({ children }: BookProviderProps) {
-  const [state, dispatch] = useReducer(bookReducer, {
-    foundBooks: [],
-    selectedBook: {},
-  });
+  const [state, dispatch] = useReducer(bookReducer, initialState);
   const value = { state, dispatch };
   return (
     <BookStateContext.Provider value={value}>
