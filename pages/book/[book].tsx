@@ -41,7 +41,7 @@ export default function BookDetails() {
       />
       <div className="flex flex-col gap-y-4">
         <h1 className="font-bold text-2xl">{title}</h1>
-        <p>Published {publishedDate}</p>
+        <p>Published: {publishedDate}</p>
         <p>{authors}</p>
         <p>{description}</p>
         <h2 className="font-bold text-xl">Saved Reviews</h2>
