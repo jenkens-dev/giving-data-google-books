@@ -3,24 +3,9 @@ import { useState } from "react";
 import BookCard from "@/components/BookCard";
 import bookStackSVG from "../public/bookStack.svg";
 import SearchBar from "@/components/SearchBar";
+import { BookData } from "@/models/BookModel";
 
 const BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
-
-interface BookData {
-  id: string;
-  volumeInfo: {
-    title: string;
-    categories?: string[];
-    publisher?: string;
-    authors?: string[];
-    description: string;
-    infoLink: string;
-    imageLinks?: {
-      thumbnail: string;
-    };
-    publishedDate: string;
-  };
-}
 
 export default function Home() {
   const [foundBookData, setFoundBookData] = useState<BookData[]>([]);
