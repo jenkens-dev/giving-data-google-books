@@ -31,7 +31,6 @@ export default function Home() {
     searchValue: string,
     event: React.FormEvent<HTMLFormElement>
   ) => {
-    console.log(searchValue, event);
     setFoundBookData([]);
     event.preventDefault();
     setIsSubmitting(true);
