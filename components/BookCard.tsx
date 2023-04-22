@@ -28,7 +28,7 @@ export default function BookCard({
 
   const bookDetailsURLObject = {
     pathname: `/book/${id}`,
-    query: { id, title, thumbnail, authors, description, publishedDate },
+    // query: { id },
   };
 
   const handleClick = () => {
@@ -37,7 +37,8 @@ export default function BookCard({
     });
     if (selectedBook) {
       dispatch({ type: "SAVE_SELECTED_BOOK", payload: selectedBook });
-      router.push(`/book/${id}`);
+      // router.push(`/book/${id}`);
+      router.push(bookDetailsURLObject);
     }
   };
 
