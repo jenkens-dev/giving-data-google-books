@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import bookStackSVG from "../../public/bookStack.svg";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useBookContext } from "@/context/bookContext";
@@ -8,8 +9,7 @@ export default function BookDetails() {
   const [review, setReview] = useState("");
   const [savedReview, setSavedReview] = useState("");
   const router = useRouter();
-  const bookData = router.query;
-  const { thumbnail } = bookData;
+  console.log(router.query);
 
   const {
     state: {
@@ -20,6 +20,7 @@ export default function BookDetails() {
           description,
           authors = ["No authors found"],
           publishedDate,
+          imageLinks: { thumbnail } = { thumbnail: bookStackSVG },
         },
       },
     },
