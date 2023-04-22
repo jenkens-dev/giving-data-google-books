@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useBookContext } from "@/context/bookContext";
 
+const BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes/";
+
 export default function BookDetails() {
   const [review, setReview] = useState("");
   const [savedReview, setSavedReview] = useState("");
@@ -38,6 +40,14 @@ export default function BookDetails() {
   ) => {
     setReview(event.target.value);
   };
+
+  // useEffect(() => {
+  //   if (!id) {
+  //     fetch(
+  //       `${BOOKS_API_URL}${}&key=${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY}`
+  //     );
+  //   }
+  // }, []);
 
   useEffect(() => {
     const previousReview = localStorage.getItem(id);
