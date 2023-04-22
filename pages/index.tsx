@@ -3,35 +3,22 @@ import { useState } from "react";
 import BookCard from "@/components/BookCard";
 import bookStackSVG from "../public/bookStack.svg";
 import SearchBar from "@/components/SearchBar";
+import { useBookContext } from "@/context/bookContext";
 
 const BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
 
-interface BookData {
-  id: string;
-  volumeInfo: {
-    title: string;
-    categories?: string[];
-    publisher?: string;
-    authors?: string[];
-    description: string;
-    infoLink: string;
-    imageLinks?: {
-      thumbnail: string;
-    };
-    publishedDate: string;
-  };
-}
-
 export default function Home() {
-  const [foundBookData, setFoundBookData] = useState<BookData[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
+  const {
+    state: { foundBooks, selectedBook },
+    dispatch,
+  } = useBookContext();
 
   const handleSearchSubmit = async (
     searchValue: string,
     event: React.FormEvent<HTMLFormElement>
   ) => {
-    setFoundBookData([]);
     event.preventDefault();
     setIsSubmitting(true);
     await fetch(
@@ -41,10 +28,10 @@ export default function Home() {
       .then((data) => {
         if (!data.items) {
           // handle search not finding any results
-          setFoundBookData([]);
+          dispatch({ type: "SAVE_FOUND_BOOKS", payload: [] });
           setIsSubmitting(false);
         } else {
-          setFoundBookData(data.items);
+          dispatch({ type: "SAVE_FOUND_BOOKS", payload: data.items });
           setIsSubmitting(false);
         }
       })
@@ -72,10 +59,10 @@ export default function Home() {
         />
         <div className="grid grid-cols-2 gap-y-1.5 w-full mt-6 justify-items-center">
           {error && <div>An error occurred please try again.</div>}
-          {!error && !isSubmitting && foundBookData?.length <= 0 ? (
+          {!error && !isSubmitting && foundBooks?.length <= 0 ? (
             <div className="col-span-2">Use the search to find books!</div>
           ) : (
-            foundBookData.map((book) => {
+            foundBooks.map((book) => {
               return (
                 <BookCard
                   key={book.id}
@@ -85,8 +72,6 @@ export default function Home() {
                   title={book.volumeInfo.title}
                   authors={book.volumeInfo.authors ?? ["No author found"]}
                   id={book.id}
-                  description={book.volumeInfo.description}
-                  publishedDate={book.volumeInfo.publishedDate}
                 />
               );
             })

@@ -1,14 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useBookContext } from "@/context/bookContext";
 
 interface BookCardProps {
   thumbnail: string;
   title: string;
   authors: string[];
   id: string;
-  description: string;
-  publishedDate: string;
 }
 
 export default function BookCard({
@@ -16,18 +15,25 @@ export default function BookCard({
   title,
   authors,
   id,
-  description,
-  publishedDate,
 }: BookCardProps) {
   const router = useRouter();
+  const {
+    state: { foundBooks },
+    dispatch,
+  } = useBookContext();
 
   const bookDetailsURLObject = {
     pathname: `/book/${id}`,
-    query: { id, title, thumbnail, authors, description, publishedDate },
   };
 
   const handleClick = () => {
-    router.push(bookDetailsURLObject);
+    const selectedBook = foundBooks.find((book) => {
+      return book.id === id;
+    });
+    if (selectedBook) {
+      dispatch({ type: "SAVE_SELECTED_BOOK", payload: selectedBook });
+      router.push(bookDetailsURLObject);
+    }
   };
 
   return (

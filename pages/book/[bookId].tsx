@@ -1,19 +1,31 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import bookStackSVG from "../../public/bookStack.svg";
 import { useEffect, useState } from "react";
+import { useBookContext } from "@/context/bookContext";
 
 export default function BookDetails() {
   const [review, setReview] = useState("");
   const [savedReview, setSavedReview] = useState("");
-  const router = useRouter();
-  const bookData = router.query;
-  const { id, thumbnail, title, authors, description, publishedDate } =
-    bookData;
+
+  const {
+    state: {
+      selectedBook: {
+        id,
+        volumeInfo: {
+          title,
+          description,
+          authors = ["No authors found"],
+          publishedDate,
+          imageLinks: { thumbnail } = { thumbnail: bookStackSVG },
+        },
+      },
+    },
+  } = useBookContext();
 
   const handleReviewSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    localStorage.setItem(id as string, review);
+    localStorage.setItem(id, review);
     setReview("");
     setSavedReview(review);
   };
@@ -25,7 +37,7 @@ export default function BookDetails() {
   };
 
   useEffect(() => {
-    const previousReview = localStorage.getItem(id as string);
+    const previousReview = localStorage.getItem(id);
     if (previousReview) {
       setSavedReview(previousReview);
     }
@@ -55,7 +67,13 @@ export default function BookDetails() {
         <div className="flex flex-col gap-y-3.5">
           <h1 className="font-bold text-5xl">{title}</h1>
           <div>
-            <p className="italic text-slate-600 text-2xl">{authors}</p>
+            {authors.map((author) => {
+              return (
+                <p key={author} className="italic text-slate-600 text-2xl">
+                  {author}
+                </p>
+              );
+            })}
             <p className="text-slate-500">Published: {publishedDate}</p>
           </div>
           <p className="text-lg">{description}</p>
