@@ -72,8 +72,6 @@ export default function Home() {
                   title={book.volumeInfo.title}
                   authors={book.volumeInfo.authors ?? ["No author found"]}
                   id={book.id}
-                  description={book.volumeInfo.description}
-                  publishedDate={book.volumeInfo.publishedDate}
                 />
               );
             })

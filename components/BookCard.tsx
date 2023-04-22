@@ -8,8 +8,6 @@ interface BookCardProps {
   title: string;
   authors: string[];
   id: string;
-  description: string;
-  publishedDate: string;
 }
 
 export default function BookCard({
@@ -17,8 +15,6 @@ export default function BookCard({
   title,
   authors,
   id,
-  description,
-  publishedDate,
 }: BookCardProps) {
   const router = useRouter();
   const {
@@ -28,7 +24,6 @@ export default function BookCard({
 
   const bookDetailsURLObject = {
     pathname: `/book/${id}`,
-    // query: { id },
   };
 
   const handleClick = () => {
@@ -37,7 +32,6 @@ export default function BookCard({
     });
     if (selectedBook) {
       dispatch({ type: "SAVE_SELECTED_BOOK", payload: selectedBook });
-      // router.push(`/book/${id}`);
       router.push(bookDetailsURLObject);
     }
   };
