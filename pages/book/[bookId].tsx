@@ -25,7 +25,12 @@ export default function BookDetails() {
 
   const handleReviewSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    localStorage.setItem(id, review);
+    const reviewObj = {
+      review,
+      createdAt: Date.now(),
+      editedAt: "",
+    };
+    localStorage.setItem(id, JSON.stringify(reviewObj));
     setReview("");
     setSavedReview(review);
   };
@@ -36,10 +41,16 @@ export default function BookDetails() {
     setReview(event.target.value);
   };
 
+  const handleReviewDelete = () => {
+    localStorage.removeItem(id);
+    setSavedReview("");
+  };
+
   useEffect(() => {
-    const previousReview = localStorage.getItem(id);
-    if (previousReview) {
-      setSavedReview(previousReview);
+    if (localStorage.getItem(id)) {
+      const previousReview = JSON.parse(localStorage.getItem(id)!);
+      console.log(previousReview);
+      setSavedReview(previousReview.review);
     }
   }, [id]);
 
@@ -78,7 +89,14 @@ export default function BookDetails() {
           </div>
           <p className="text-lg">{description}</p>
           <h2 className="font-semibold text-3xl">Saved Reviews</h2>
-          {savedReview || "There are no reviews for this book."}
+          {savedReview ? (
+            <p>
+              {savedReview}
+              <button onClick={handleReviewDelete}>Delete</button>
+            </p>
+          ) : (
+            "There are no reviews for this book."
+          )}
           <form onSubmit={handleReviewSubmit}>
             <label htmlFor="bookReview" className="sr-only">
               Enter your review
