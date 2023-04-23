@@ -23,7 +23,19 @@ export default function BookDetails() {
     },
   } = useBookContext();
 
-  const handleReviewSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleTextAreaEnter = (
+    event: React.KeyboardEvent<HTMLTextAreaElement>
+  ) => {
+    if (event.key === "Enter") {
+      handleReviewSubmit(event);
+    }
+  };
+
+  const handleReviewSubmit = (
+    event:
+      | React.FormEvent<HTMLFormElement>
+      | React.KeyboardEvent<HTMLTextAreaElement>
+  ) => {
     event.preventDefault();
     const reviewObj = {
       review,
@@ -109,6 +121,7 @@ export default function BookDetails() {
               placeholder="Enter your review"
               rows={8}
               className="block w-full rounded-sm"
+              onKeyDown={handleTextAreaEnter}
             />
             <button
               type="submit"
