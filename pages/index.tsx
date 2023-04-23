@@ -9,7 +9,7 @@ const BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
 
 export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   const {
     state: { foundBooks, selectedBook },
     dispatch,
@@ -29,6 +29,7 @@ export default function Home() {
         if (!data.items) {
           // handle search not finding any results
           dispatch({ type: "SAVE_FOUND_BOOKS", payload: [] });
+          setError(`No books found matching ${searchValue}`);
           setIsSubmitting(false);
         } else {
           dispatch({ type: "SAVE_FOUND_BOOKS", payload: data.items });
@@ -36,7 +37,8 @@ export default function Home() {
         }
       })
       .catch((err) => {
-        setError(err);
+        setError("An error occurred please try again.");
+        console.error(err);
         setIsSubmitting(false);
       });
   };
@@ -58,7 +60,7 @@ export default function Home() {
           handleSearchSubmit={handleSearchSubmit}
         />
         <div className="grid grid-cols-2 gap-y-1.5 w-full mt-6 justify-items-center">
-          {error && <div>An error occurred please try again.</div>}
+          {error && error}
           {!error && !isSubmitting && foundBooks?.length <= 0 ? (
             <div className="col-span-2">Use the search to find books!</div>
           ) : (
