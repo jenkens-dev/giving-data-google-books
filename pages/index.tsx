@@ -55,7 +55,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center py-24 px-8">
-        <h1>GettingBooks</h1>
+        <h1 className="font-bold text-5xl mb-6 text-[#03518f]">
+          Getting{" "}
+          <span className="relative">
+            <span
+              className="block absolute -inset-1 -skew-y-3 bg-[#e67e2233]"
+              aria-hidden="true"
+            ></span>
+            <span className="relative text-[#e67e22]">Books</span>
+          </span>
+        </h1>
         <SearchBar
           isSubmitting={isSubmitting}
           handleSearchSubmit={handleSearchSubmit}
