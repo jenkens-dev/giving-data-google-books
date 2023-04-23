@@ -37,12 +37,7 @@ export default function BookDetails() {
       | React.KeyboardEvent<HTMLTextAreaElement>
   ) => {
     event.preventDefault();
-    const reviewObj = {
-      review,
-      createdAt: Date.now(),
-      editedAt: "",
-    };
-    localStorage.setItem(id, JSON.stringify(reviewObj));
+    localStorage.setItem(id, JSON.stringify(review));
     setReview("");
     setSavedReview(review);
   };
@@ -61,7 +56,6 @@ export default function BookDetails() {
   useEffect(() => {
     if (localStorage.getItem(id)) {
       const previousReview = JSON.parse(localStorage.getItem(id)!);
-      console.log(previousReview);
       setSavedReview(previousReview.review);
     }
   }, [id]);
@@ -102,10 +96,15 @@ export default function BookDetails() {
           <p className="text-lg">{description}</p>
           <h2 className="font-semibold text-3xl">Saved Reviews</h2>
           {savedReview ? (
-            <p>
-              {savedReview}
-              <button onClick={handleReviewDelete}>Delete</button>
-            </p>
+            <div>
+              <span>{savedReview}</span>
+              <button
+                onClick={handleReviewDelete}
+                className="text-white bg-orange-900 hover:bg-orange-950 font-medium rounded-sm text-md px-4 py-2 ml-2"
+              >
+                Delete
+              </button>
+            </div>
           ) : (
             "There are no reviews for this book."
           )}
