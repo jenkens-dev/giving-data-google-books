@@ -4,7 +4,7 @@ import { createContext, useReducer, useContext } from "react";
 type Action =
   | { type: "SAVE_FOUND_BOOKS"; payload: BookData[] }
   | { type: "SAVE_SELECTED_BOOK"; payload: BookData };
-type Dispatch = (action: Action) => void;
+export type Dispatch = (action: Action) => void;
 type State = { foundBooks: BookData[] | []; selectedBook: BookData };
 type BookProviderProps = { children: React.ReactNode };
 
