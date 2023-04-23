@@ -55,10 +55,18 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center py-24 px-8">
+        <h1>GettingBooks</h1>
         <SearchBar
           isSubmitting={isSubmitting}
           handleSearchSubmit={handleSearchSubmit}
         />
+        <div>
+          <h2 className="inline">My recommended books</h2>
+          <span>Haikyuu</span>
+          <span>The Martian</span>
+          <span>Golden Kamuy</span>
+          <span>Gideon the Ninth</span>
+        </div>
         <div className="grid grid-cols-2 gap-y-1.5 w-full mt-6 justify-items-center">
           {error && error}
           {!error && !isSubmitting && foundBooks?.length <= 0 ? (
