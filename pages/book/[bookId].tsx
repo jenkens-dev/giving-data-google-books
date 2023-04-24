@@ -67,7 +67,7 @@ export default function BookDetails() {
   }, [id]);
 
   useEffect(() => {
-    // handle page refresh when state is lost
+    // handle page refresh when state is lost and recommended books data
     if (routerId && !id) {
       fetch(
         `${BOOKS_API_URL}/${routerId}?key=${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY}`
@@ -75,7 +75,20 @@ export default function BookDetails() {
         .then((res) => res.json())
         .then((data) => {
           if (data) {
-            dispatch({ type: "SAVE_SELECTED_BOOK", payload: data });
+            // google books volume query returns description with html tags inside
+            // use replace regex to remove all tags
+            const descriptionWithoutTags = data.volumeInfo.description.replace(
+              /<[^>]*>?/gm,
+              ""
+            );
+            const bookData = {
+              ...data,
+              volumeInfo: {
+                ...data.volumeInfo,
+                description: descriptionWithoutTags,
+              },
+            };
+            dispatch({ type: "SAVE_SELECTED_BOOK", payload: bookData });
           }
         })
         .catch((err) => {
@@ -94,7 +107,7 @@ export default function BookDetails() {
       </Link>
       <div className="w-2/3 my-12 mx-auto flex gap-x-8">
         <Image
-          src={thumbnail as string}
+          src={thumbnail || bookStackSVG}
           alt={`Thumbnail picture of ${title}`}
           width="250"
           height="350"
