@@ -69,11 +69,12 @@ export default function BookDetails() {
   useEffect(() => {
     // handle page refresh when state is lost and recommended books data
     if (routerId && !id) {
-      fetch(
-        `${BOOKS_API_URL}/${routerId}?key=${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
+      try {
+        const fetchVolumeById = async () => {
+          const response = await fetch(
+            `${BOOKS_API_URL}/${routerId}?key=${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY}`
+          );
+          const data = await response.json();
           if (data) {
             // google books volume query returns description with html tags inside
             // use replace regex to remove all tags
@@ -90,10 +91,11 @@ export default function BookDetails() {
             };
             dispatch({ type: "SAVE_SELECTED_BOOK", payload: bookData });
           }
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+        };
+        fetchVolumeById();
+      } catch (err) {
+        console.error(err);
+      }
     }
   }, [routerId]);
 
