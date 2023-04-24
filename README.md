@@ -23,6 +23,8 @@ This app interacts with the Google Books API and in order to run it locally you 
 
 ## Features
 
+![Home page of GettingBooks app that shows a search bar and the search results for Chihayafuru](public/homePage.png)
+
 - [x] The home page should display a search bar that allows the user to search for books that match a keyword.
 - [x] Searching for a term should query the Google Books API to display a list of books that match the term.
 - [x] The home page should display the collection of books that match the search results.
