@@ -3,10 +3,15 @@ import Link from "next/link";
 import bookStackSVG from "../../public/bookStack.svg";
 import { useEffect, useState } from "react";
 import { useBookContext } from "@/context/bookContext";
+import { useRouter } from "next/router";
+
+const BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes";
 
 export default function BookDetails() {
   const [review, setReview] = useState("");
   const [savedReview, setSavedReview] = useState("");
+  const router = useRouter();
+  const routerId = router.query.bookId;
 
   const {
     state: {
@@ -21,6 +26,7 @@ export default function BookDetails() {
         },
       },
     },
+    dispatch,
   } = useBookContext();
 
   const handleTextAreaEnter = (
@@ -59,6 +65,24 @@ export default function BookDetails() {
       setSavedReview(previousReview);
     }
   }, [id]);
+
+  useEffect(() => {
+    // handle page refresh when state is lost
+    if (routerId && !id) {
+      fetch(
+        `${BOOKS_API_URL}/${routerId}?key=${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          if (data) {
+            dispatch({ type: "SAVE_SELECTED_BOOK", payload: data });
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }, [routerId]);
 
   return (
     <>
