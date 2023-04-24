@@ -4,8 +4,7 @@ import bookStackSVG from "../../public/bookStack.svg";
 import { useEffect, useState } from "react";
 import { useBookContext } from "@/context/bookContext";
 import { useRouter } from "next/router";
-
-const BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes";
+import { fetchVolumeDataById } from "@/utils";
 
 export default function BookDetails() {
   const [review, setReview] = useState("");
@@ -69,33 +68,7 @@ export default function BookDetails() {
   useEffect(() => {
     // handle page refresh when state is lost and recommended books data
     if (routerId && !id) {
-      try {
-        const fetchVolumeById = async () => {
-          const response = await fetch(
-            `${BOOKS_API_URL}/${routerId}?key=${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY}`
-          );
-          const data = await response.json();
-          if (data) {
-            // google books volume query returns description with html tags inside
-            // use replace regex to remove all tags
-            const descriptionWithoutTags = data.volumeInfo.description.replace(
-              /<[^>]*>?/gm,
-              ""
-            );
-            const bookData = {
-              ...data,
-              volumeInfo: {
-                ...data.volumeInfo,
-                description: descriptionWithoutTags,
-              },
-            };
-            dispatch({ type: "SAVE_SELECTED_BOOK", payload: bookData });
-          }
-        };
-        fetchVolumeById();
-      } catch (err) {
-        console.error(err);
-      }
+      fetchVolumeDataById(routerId, dispatch);
     }
   }, [routerId]);
 

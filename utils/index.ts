@@ -1,6 +1,6 @@
 import { Dispatch } from "@/context/bookContext";
 
-const BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
+const GOOGLE_BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes";
 
 export const fetchGoogleBooksData = async (
   searchValue: string,
@@ -12,7 +12,7 @@ export const fetchGoogleBooksData = async (
   setError("");
   try {
     const response = await fetch(
-      `${BOOKS_API_URL}${searchValue}&key=${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY}`
+      `${GOOGLE_BOOKS_API_URL}?q=${searchValue}&key=${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY}`
     );
     const data = await response.json();
     if (data.items) {
@@ -28,6 +28,36 @@ export const fetchGoogleBooksData = async (
   } catch (err) {
     setError("An error occurred please try again.");
     setIsSubmitting(false);
+    console.error(err);
+  }
+};
+
+export const fetchVolumeDataById = async (
+  routerId: string | string[],
+  dispatch: Dispatch
+) => {
+  try {
+    const response = await fetch(
+      `${GOOGLE_BOOKS_API_URL}/${routerId}?key=${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY}`
+    );
+    const data = await response.json();
+    if (data) {
+      // google books volume query returns description with html tags inside
+      // use replace regex to remove all tags
+      const descriptionWithoutTags = data.volumeInfo.description.replace(
+        /<[^>]*>?/gm,
+        ""
+      );
+      const bookData = {
+        ...data,
+        volumeInfo: {
+          ...data.volumeInfo,
+          description: descriptionWithoutTags,
+        },
+      };
+      dispatch({ type: "SAVE_SELECTED_BOOK", payload: bookData });
+    }
+  } catch (err) {
     console.error(err);
   }
 };
