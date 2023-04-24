@@ -31,9 +31,7 @@ export default function Home() {
     fetchGoogleBooksData(searchValue, dispatch, setError, setIsSubmitting);
   };
 
-  const handleRecommendedClick = async (
-    event: React.MouseEvent<HTMLSpanElement>
-  ) => {
+  const handleRecommendedClick = (event: React.MouseEvent<HTMLSpanElement>) => {
     const bookId = event.currentTarget.id;
     dispatch({ type: "RESET_SELECTED_BOOK", payload: starterSelectedBook });
     router.push({ pathname: `/book/${bookId}` });
