@@ -2,7 +2,7 @@
 
 - Next.js using [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 - [TypeScript](https://nextjs.org/docs/basic-features/typescript)
-- [TailwindCSS] (https://tailwindcss.com/)
+- [TailwindCSS](https://tailwindcss.com/)
 
 ## Getting Started
 
