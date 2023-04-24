@@ -46,6 +46,12 @@ export default function BookCard({
         alt={`Thumbnail picture of ${title}`}
         width="200"
         height="300"
+        style={{
+          minWidth: 200,
+          minHeight: 300,
+          maxWidth: 200,
+          maxHeight: 300,
+        }}
       />
       <div className="w-full bg-gray-50 absolute bottom-0 border-t border-stone-500 px-4 py-2">
         <p className="font-semibold text-lg">{title}</p>
