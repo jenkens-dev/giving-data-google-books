@@ -1,5 +1,6 @@
 export type BookData = {
   id: string;
+  etag: string;
   volumeInfo: {
     title: string;
     categories?: string[];

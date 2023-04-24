@@ -12,6 +12,7 @@ const initialState = {
   foundBooks: [],
   selectedBook: {
     id: "",
+    etag: "",
     volumeInfo: {
       title: "",
       categories: [""],

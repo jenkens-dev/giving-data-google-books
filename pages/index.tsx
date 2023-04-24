@@ -86,7 +86,7 @@ export default function Home() {
             foundBooks.map((book) => {
               return (
                 <BookCard
-                  key={book.id}
+                  key={book.etag}
                   thumbnail={
                     book.volumeInfo.imageLinks?.thumbnail ?? bookStackSVG
                   }
