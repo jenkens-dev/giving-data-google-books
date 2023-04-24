@@ -6,6 +6,13 @@ import SearchBar from "@/components/SearchBar";
 import { useBookContext } from "@/context/bookContext";
 import { fetchGoogleBooksData } from "@/utils";
 
+const RECOMMENDED_BOOKS = [
+  "Haikyuu",
+  "The Martian",
+  "Golden Kamuy",
+  "Gideon the Ninth",
+];
+
 export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -59,30 +66,17 @@ export default function Home() {
           <h2 className="font-semibold text-lg inline">
             My recommended books:
           </h2>
-          <span
-            onClick={(event) => handleRecommendedClick(event)}
-            className="ml-2 text-orange-900 underline"
-          >
-            Haikyuu
-          </span>
-          <span
-            onClick={(event) => handleRecommendedClick(event)}
-            className="ml-2 text-orange-900 underline"
-          >
-            The Martian
-          </span>
-          <span
-            onClick={(event) => handleRecommendedClick(event)}
-            className="ml-2 text-orange-900 underline"
-          >
-            Golden Kamuy
-          </span>
-          <span
-            onClick={(event) => handleRecommendedClick(event)}
-            className="ml-2 text-orange-900 underline"
-          >
-            Gideon the Ninth
-          </span>
+          {RECOMMENDED_BOOKS.map((book) => {
+            return (
+              <span
+                key={book}
+                onClick={(event) => handleRecommendedClick(event)}
+                className="ml-2 text-orange-900 underline"
+              >
+                {book}
+              </span>
+            );
+          })}
         </div>
         <div className="grid grid-cols-2 gap-y-1.5 w-full mt-6 justify-items-center">
           {error && error}
