@@ -71,7 +71,7 @@ export default function Home() {
               <span
                 key={book}
                 onClick={(event) => handleRecommendedClick(event)}
-                className="ml-2 text-orange-900 underline"
+                className="ml-2 text-orange-900 underline cursor-pointer"
               >
                 {book}
               </span>
