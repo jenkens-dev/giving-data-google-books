@@ -56,7 +56,7 @@ export default function BookDetails() {
   useEffect(() => {
     if (localStorage.getItem(id)) {
       const previousReview = JSON.parse(localStorage.getItem(id)!);
-      setSavedReview(previousReview.review);
+      setSavedReview(previousReview);
     }
   }, [id]);
 
