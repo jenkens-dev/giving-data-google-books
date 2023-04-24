@@ -27,7 +27,7 @@ export const fetchGoogleBooksData = async (
     console.log(data);
   } catch (err) {
     setError("An error occurred please try again.");
-    console.error(err);
     setIsSubmitting(false);
+    console.error(err);
   }
 };
