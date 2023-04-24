@@ -3,14 +3,15 @@ import { useState } from "react";
 import BookCard from "@/components/BookCard";
 import bookStackSVG from "../public/bookStack.svg";
 import SearchBar from "@/components/SearchBar";
-import { useBookContext } from "@/context/bookContext";
+import { starterSelectedBook, useBookContext } from "@/context/bookContext";
 import { fetchGoogleBooksData } from "@/utils";
+import { useRouter } from "next/router";
 
 const RECOMMENDED_BOOKS = [
-  "Golden Kamuy",
-  "The Martian",
-  "The Unbroken",
-  "The Jasmine Throne",
+  { bookTitle: "Golden Kamuy", bookId: "5z4lvgAACAAJ" },
+  { bookTitle: "The Martian", bookId: "OPAgEAAAQBAJ" },
+  { bookTitle: "The Unbroken", bookId: "E5HvDwAAQBAJ" },
+  { bookTitle: "The Jasmine Throne", bookId: "cAz1DwAAQBAJ" },
 ];
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
     state: { foundBooks },
     dispatch,
   } = useBookContext();
+  const router = useRouter();
 
   const handleSearchSubmit = async (
     searchValue: string,
@@ -32,8 +34,9 @@ export default function Home() {
   const handleRecommendedClick = async (
     event: React.MouseEvent<HTMLSpanElement>
   ) => {
-    const searchValue = event.currentTarget.innerText;
-    fetchGoogleBooksData(searchValue, dispatch, setError, setIsSubmitting);
+    const bookId = event.currentTarget.id;
+    dispatch({ type: "RESET_SELECTED_BOOK", payload: starterSelectedBook });
+    router.push({ pathname: `/book/${bookId}` });
   };
 
   return (
@@ -66,14 +69,15 @@ export default function Home() {
           <h2 className="font-semibold text-lg inline">
             My recommended books:
           </h2>
-          {RECOMMENDED_BOOKS.map((book) => {
+          {RECOMMENDED_BOOKS.map(({ bookTitle, bookId }) => {
             return (
               <span
-                key={book}
+                key={bookId}
+                id={bookId}
                 onClick={(event) => handleRecommendedClick(event)}
                 className="ml-2 text-orange-900 underline cursor-pointer"
               >
-                {book}
+                {bookTitle}
               </span>
             );
           })}

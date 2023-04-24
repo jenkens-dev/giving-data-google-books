@@ -1,31 +1,34 @@
 import { BookData } from "@/models/BookModel";
 import { createContext, useReducer, useContext } from "react";
 
+export const starterSelectedBook = {
+  id: "",
+  etag: "",
+  volumeInfo: {
+    title: "",
+    categories: [""],
+    publisher: "",
+    authors: [""],
+    description: "",
+    infoLink: "",
+    imageLinks: {
+      thumbnail: "",
+    },
+    publishedDate: "",
+  },
+};
+
 type Action =
   | { type: "SAVE_FOUND_BOOKS"; payload: BookData[] }
-  | { type: "SAVE_SELECTED_BOOK"; payload: BookData };
+  | { type: "SAVE_SELECTED_BOOK"; payload: BookData }
+  | { type: "RESET_SELECTED_BOOK"; payload: BookData };
 export type Dispatch = (action: Action) => void;
 type State = { foundBooks: BookData[] | []; selectedBook: BookData };
 type BookProviderProps = { children: React.ReactNode };
 
 const initialState = {
   foundBooks: [],
-  selectedBook: {
-    id: "",
-    etag: "",
-    volumeInfo: {
-      title: "",
-      categories: [""],
-      publisher: "",
-      authors: [""],
-      description: "",
-      infoLink: "",
-      imageLinks: {
-        thumbnail: "",
-      },
-      publishedDate: "",
-    },
-  },
+  selectedBook: starterSelectedBook,
 };
 
 const BookStateContext = createContext<
@@ -41,6 +44,12 @@ function bookReducer(state: State, action: Action) {
       };
     }
     case "SAVE_SELECTED_BOOK": {
+      return {
+        ...state,
+        selectedBook: action.payload,
+      };
+    }
+    case "RESET_SELECTED_BOOK": {
       return {
         ...state,
         selectedBook: action.payload,
