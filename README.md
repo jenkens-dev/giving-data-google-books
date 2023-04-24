@@ -34,6 +34,7 @@ This app interacts with the Google Books API and in order to run it locally you 
 - [ ] Pagination
 - [ ] Expanding the search bar to specify searches like `inauthor:` or `intitle:`
 - [ ] Allow star value in addition to text reviews
+- [ ] Expand reviews to allow inline edits, and show created at or updated at dates
 
 ## Deployment
 
