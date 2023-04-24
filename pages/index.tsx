@@ -7,10 +7,10 @@ import { useBookContext } from "@/context/bookContext";
 import { fetchGoogleBooksData } from "@/utils";
 
 const RECOMMENDED_BOOKS = [
-  "Haikyuu",
-  "The Martian",
   "Golden Kamuy",
-  "Gideon the Ninth",
+  "The Martian",
+  "The Unbroken",
+  "The Jasmine Throne",
 ];
 
 export default function Home() {
